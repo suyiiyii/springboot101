@@ -14,5 +14,14 @@
         FROM grades
     </select>
 
-    <!-- other CRUD operations -->
+    <select id="getGradeById" resultMap="GradeResultMap">
+        SELECT *
+        FROM grades
+        WHERE studentid = #{studentid}
+    </select>
+
+    <insert id="addGrade" parameterType="Grade">
+        INSERT INTO grades (studentid, grade)
+        VALUES (#{studentid}, #{grade})
+    </insert>
 </mapper>
