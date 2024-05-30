@@ -1,26 +1,34 @@
 package top.suyiiyii.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import top.suyiiyii.dto.GradeDto;
+import top.suyiiyii.service.GradeService;
 
 import java.util.List;
 
 @RestController
 public class GradeController {
 
+    private final GradeService gradeService;
+
+    @Autowired
+    public GradeController(GradeService gradeService) {
+        this.gradeService = gradeService;
+    }
 
     @GetMapping("/all_grades")
     List<GradeDto> allGrades() {
-        return List.of(new GradeDto("20180001", 90), new GradeDto("20180002", 80), new GradeDto("20180003", 70));
+        return gradeService.getAllGrades();
     }
 
     @GetMapping("/grade")
     public GradeDto getGrade(@RequestParam String studentid) {
-        return new GradeDto("20180001", 90);
+        return gradeService.getGrade(studentid);
     }
 
     @PostMapping("/add_grade")
     public GradeDto addGrade(@RequestBody GradeDto grade) {
-        return grade;
+        return gradeService.addGrade(grade);
     }
 }
