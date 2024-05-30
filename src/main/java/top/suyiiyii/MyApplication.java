@@ -3,10 +3,9 @@ package top.suyiiyii;
 import lombok.Data;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @SpringBootApplication
@@ -16,18 +15,12 @@ public class MyApplication {
         SpringApplication.run(MyApplication.class, args);
     }
 
-    @RequestMapping("/")
-    Map home() {
-        Map<String, String> env = System.getenv();
-        return env;
-    }
-
-    @RequestMapping("/health")
+    @GetMapping("/health")
     String health() {
         return "OK";
     }
 
-    @RequestMapping("/server_info")
+    @GetMapping("/server_info")
     ServerInfo serverInfo() {
         ServerInfo info = new ServerInfo();
         info.setMessage("SpringBoot101 server by suyiiyii.");
