@@ -18,8 +18,8 @@ public class GradeController {
     }
 
     @GetMapping("/all_grades")
-    List<GradeDto> allGrades() {
-        return gradeService.getAllGrades();
+    List<GradeDto> allGrades(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        return gradeService.getAllGrades(page, size);
     }
 
     @GetMapping("/grade")

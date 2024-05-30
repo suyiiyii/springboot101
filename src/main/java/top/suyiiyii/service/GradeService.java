@@ -1,5 +1,6 @@
 package top.suyiiyii.service;
 
+import org.apache.ibatis.session.RowBounds;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import top.suyiiyii.dto.GradeDto;
@@ -19,8 +20,9 @@ public class GradeService {
         this.gradeMapper = gradeMapper;
     }
 
-    public List<GradeDto> getAllGrades() {
-        List<Grade> grades = gradeMapper.getAllGrades();
+    public List<GradeDto> getAllGrades(int page, int size) {
+        int offset = (page - 1) * size;
+        List<Grade> grades = gradeMapper.getAllGrades(new RowBounds(offset, size));
         return grades.stream().map(grade -> modelMapper.map(grade, GradeDto.class)).toList();
 
 //        return List.of(new GradeDto("20180001", 90), new GradeDto("20180002", 80), new GradeDto("20180003", 70));
